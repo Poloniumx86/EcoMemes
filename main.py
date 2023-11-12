@@ -2,7 +2,7 @@ import streamlit as st
 import openai
 from backend_to_be_added import selected_key
 
-openai.api_key = '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'
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 messages=[
     {"role": "system", "content": "We will provide you an image name, we want you to provide us meme text about sustainability that is related to the image name we provide. Keep the meme text short and be very funny"},

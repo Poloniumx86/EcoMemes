@@ -1,9 +1,10 @@
 import boto3
 import random
+import os
 
 # Replace with your AWS credentials and S3 details
-aws_access_key_id = 'AKIA5AVSWOGCIMVZAYFZ'
-aws_secret_access_key = 'AOsbt2F/BucEaG4+ZeoVRPiq5u8bf1EuhBrJuM+K'
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY')
+aws_secret_access_key = os.getenv('AWS_SECRET_KEY')'
 region_name = 'eu-west-2'
 bucket_name = 'hacksheffield-8'
 
