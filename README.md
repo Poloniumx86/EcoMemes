@@ -11,5 +11,4 @@ The python libraries required for this project are:
 
 ```
 pip install openai streamlit boto3
-
 ```
