@@ -1,6 +1,6 @@
 import streamlit as st
 import openai
-from backend_to_be_added import selected_key
+from backend import selected_key
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
@@ -16,11 +16,12 @@ def get_assistant_response(messages):
     response = r.choices[0].message.content
     return response
 
-messages.append({"role": "user", "content": selected_key})
-
 # Get assistant response
 
+
 if st.button("Generate Meme :sunglasses:"):
+    currentImage : File_Name()
+    messages.append({"role": "user", "content": currentImage})
     response = get_assistant_response(messages)
     st.write(response)
-    st.image(f'./images/{selected_key}', use_column_width=True)
+    st.image(f'./images/{currentImage}', use_column_width=True)

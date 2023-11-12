@@ -18,4 +18,5 @@ response = s3.list_objects(Bucket=bucket_name)
 all_keys = [obj['Key'] for obj in response.get('Contents', [])]
 
 # Randomly pick an item
-selected_key = random.choice(all_keys)
+def File_Name():
+    return random.choice(all_keys)
