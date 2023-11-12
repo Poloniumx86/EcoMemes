@@ -1,33 +1,20 @@
-import openai
+import boto3
+import random
 
-openai.api_key = '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'
+# Replace with your AWS credentials and S3 details
+aws_access_key_id = 'AKIA5AVSWOGCIMVZAYFZ'
+aws_secret_access_key = 'AOsbt2F/BucEaG4+ZeoVRPiq5u8bf1EuhBrJuM+K'
+region_name = 'eu-west-2'
+bucket_name = 'hacksheffield-8'
 
-# Initialize the chat messages history
-messages = [{"role": "assistant", "content": "How can I help?"}]
+# Create an S3 client
+s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=region_name)
 
-# Function to display the chat history
-def display_chat_history(messages):
-    for message in messages:
-        print(f"{message['role'].capitalize()}: {message['content']}")
+# List objects in the S3 bucket
+response = s3.list_objects(Bucket=bucket_name)
 
-# Function to get the assistant's response
-def get_assistant_response(messages):
-    r = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": m["role"], "content": m["content"]} for m in messages],
-    )
-    response = r.choices[0].message.content
-    return response
+# Extract the keys (names) of all objects in the bucket
+all_keys = [obj['Key'] for obj in response.get('Contents', [])]
 
-# Main chat loop
-while True:
-    # Display chat history
-    display_chat_history(messages)
-
-    # Get user input
-    prompt = input("User: ")
-    messages.append({"role": "user", "content": prompt})
-
-    # Get assistant response
-    response = get_assistant_response(messages)
-    messages.append({"role": "assistant", "content": response})
+# Randomly pick an item
+selected_key = random.choice(all_keys)

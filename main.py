@@ -1,17 +1,13 @@
 import streamlit as st
 import openai
+from backend_to_be_added import selected_key
 
-openai.api_key = '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'
+openai.api_key = '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'
 
-# Initialize the chat messages history
-messages = [{"role": "assistant", "content": "How can I help?"}]
+messages=[
+    {"role": "system", "content": "We will provide you an image name, we want you to provide us meme text about sustainability that is related to the image name we provide. Keep the meme text short and be very funny"},
+  ]
 
-# Function to display the chat history
-# def display_chat_history(messages):
-#     for message in messages:
-#         st.write(f"{message['role'].capitalize()}: {message['content']}")
-
-# Function to get the assistant's response
 def get_assistant_response(messages):
     r = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -20,14 +16,11 @@ def get_assistant_response(messages):
     response = r.choices[0].message.content
     return response
 
-# Main chat loop
-# Display chat history
-# display_chat_history(messages)
-
-# Get user input
-prompt = st.text_input('Prompt', '')
+messages.append({"role": "user", "content": selected_key})
 
 # Get assistant response
-response = get_assistant_response(messages)
 
-st.write(response)
+if st.button("Generate Meme :sunglasses:"):
+    response = get_assistant_response(messages)
+    st.write(response)
+    st.image(f'./images/{selected_key}', use_column_width=True)
